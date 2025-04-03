@@ -3,58 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMMORTAL | Login</title>
+    <title>SYNXGEN</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
+        /* Common Styles */
         body {
             margin: 0;
             padding: 0;
+            font-family: 'Press Start 2P', cursive;
+            background-color: #000;
+            color: #0f0;
+            overflow-x: hidden;
+        }
+        
+        /* Login Page Styles */
+        .login-page {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #000000;
-            color: #00ff00;
-            font-family: 'Press Start 2P', cursive;
-            overflow: hidden;
-        }
-        
-        .title-container {
-            text-align: center;
-            margin-bottom: 50px;
             position: relative;
         }
         
         .immortal {
             font-size: 6rem;
-            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
-            position: relative;
+            text-shadow: 0 0 10px #00ff00;
             animation: glitch 1s linear infinite;
-        }
-        
-        .immortal::before, .immortal::after {
-            content: 'IMMORTAL';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .immortal::before {
-            animation: glitch-top 2s linear infinite;
-            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-            transform: translate(-5px, -5px);
-            color: #ff00ff;
-        }
-        
-        .immortal::after {
-            animation: glitch-bottom 1.5s linear infinite;
-            clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-            transform: translate(5px, 5px);
-            color: #00ffff;
+            margin-bottom: 50px;
         }
         
         .discord-btn {
@@ -63,196 +40,137 @@
             color: white;
             border: none;
             border-radius: 4px;
-            font-size: 1.2rem;
             font-family: 'Press Start 2P', cursive;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 0 10px #5865F2;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
+            font-size: 1rem;
         }
         
-        .discord-btn:hover {
-            animation: btn-glitch 0.5s linear infinite;
-            box-shadow: 0 0 20px #5865F2;
+        /* Main App Styles */
+        .app-container {
+            display: none;
+            height: 100vh;
         }
         
-        .discord-btn:active {
-            transform: translateY(2px);
-        }
-        
-        .scanlines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+        .sidebar {
+            width: 250px;
+            background-color: #111;
             height: 100%;
-            background: linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0.1) 1px,
-                transparent 1px
-            );
-            background-size: 100% 3px;
-            pointer-events: none;
-            z-index: 100;
-            animation: scanline 10s linear infinite;
+            position: fixed;
+            padding: 20px 0;
+            border-right: 1px solid #0f0;
         }
         
+        .sidebar-option {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-option:hover {
+            background-color: #222;
+            text-shadow: 0 0 5px #0f0;
+        }
+        
+        .content-area {
+            margin-left: 250px;
+            padding: 20px;
+            height: 100%;
+        }
+        
+        /* Animations */
         @keyframes glitch {
-            0%, 100% {
-                text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
-            }
-            25% {
-                text-shadow: 0 0 10px #00ff00, -5px 0 20px #ff00ff;
-            }
-            50% {
-                text-shadow: 0 0 10px #00ff00, 5px 0 20px #00ffff;
-            }
-            75% {
-                text-shadow: 0 0 10px #00ff00, 0 -5px 20px #ffff00;
-            }
+            0%, 100% { text-shadow: 0 0 10px #0f0; }
+            25% { text-shadow: -5px 0 10px #f0f; }
+            50% { text-shadow: 5px 0 10px #0ff; }
         }
         
-        @keyframes glitch-top {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            20% {
-                transform: translate(-5px, -5px);
-            }
-            40% {
-                transform: translate(-5px, 5px);
-            }
-            60% {
-                transform: translate(5px, -5px);
-            }
-            80% {
-                transform: translate(5px, 5px);
-            }
-        }
-        
-        @keyframes glitch-bottom {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            20% {
-                transform: translate(-5px, -5px);
-            }
-            40% {
-                transform: translate(-5px, 5px);
-            }
-            60% {
-                transform: translate(5px, -5px);
-            }
-            80% {
-                transform: translate(5px, 5px);
-            }
-        }
-        
-        @keyframes btn-glitch {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            25% {
-                transform: translate(-2px, -2px);
-            }
-            50% {
-                transform: translate(2px, 2px);
-            }
-            75% {
-                transform: translate(-2px, 2px);
-            }
-        }
-        
-        @keyframes scanline {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 0 100vh;
-            }
-        }
-        
-        .pixel-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(to right, rgba(0, 255, 0, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
-            z-index: -1;
-        }
-        
+        /* Responsive */
         @media (max-width: 768px) {
-            .immortal {
-                font-size: 4rem;
-            }
-            
-            .discord-btn {
-                padding: 12px 24px;
-                font-size: 1rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .immortal {
-                font-size: 2.5rem;
-            }
-            
-            .discord-btn {
-                padding: 10px 20px;
-                font-size: 0.8rem;
-            }
+            .immortal { font-size: 3rem; }
+            .sidebar { width: 200px; }
+            .content-area { margin-left: 200px; }
         }
     </style>
 </head>
 <body>
-    <div class="pixel-grid"></div>
-    <div class="scanlines"></div>
-    
-    <div class="title-container">
+    <!-- Login Page -->
+    <div class="login-page" id="loginPage">
         <h1 class="immortal">IMMORTAL</h1>
+        <button class="discord-btn" id="discordBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1 14.66 14.66 0 0 0-4.58 0 10.14 10.14 0 0 0-.53-1.1 16 16 0 0 0-4.13 1.3 17.33 17.33 0 0 0-3 11.59 16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83 3.39 3.39 0 0 0 .42-.33 11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84 12.41 12.41 0 0 0 1.08 1.78 16.44 16.44 0 0 0 5.06-2.59 17.22 17.22 0 0 0-3-11.59 16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.93 1.93 0 0 1 1.8 2 1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.92 1.92 0 0 1 1.8 2 1.92 1.92 0 0 1-1.8 2z"/>
+            </svg>
+            LOGIN WITH DISCORD
+        </button>
     </div>
     
-    <button class="discord-btn" id="discordBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
-            <path d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1 14.66 14.66 0 0 0-4.58 0 10.14 10.14 0 0 0-.53-1.1 16 16 0 0 0-4.13 1.3 17.33 17.33 0 0 0-3 11.59 16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83 3.39 3.39 0 0 0 .42-.33 11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84 12.41 12.41 0 0 0 1.08 1.78 16.44 16.44 0 0 0 5.06-2.59 17.22 17.22 0 0 0-3-11.59 16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.93 1.93 0 0 1 1.8 2 1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.92 1.92 0 0 1 1.8 2 1.92 1.92 0 0 1-1.8 2z"/>
-        </svg>
-        LOGIN WITH DISCORD
-    </button>
+    <!-- Main App (hidden until login) -->
+    <div class="app-container" id="appContainer">
+        <div class="sidebar">
+            <div class="sidebar-option" onclick="showSection('dashboard')">DASHBOARD</div>
+            <div class="sidebar-option" onclick="showSection('hits')">HITS</div>
+            <div class="sidebar-option" onclick="showSection('tools')">TOOLS</div>
+            <div class="sidebar-option" onclick="showSection('settings')">SETTINGS</div>
+        </div>
+        <div class="content-area" id="contentArea">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
 
     <script>
+        // Simple login simulation (replace with actual Discord OAuth)
         document.getElementById('discordBtn').addEventListener('click', function() {
-            // Your Discord application credentials
-            const clientId = '1337711363216375899';
-            const redirectUri = encodeURIComponent('https://synxgen.vercel.app/api/auth/callback');
-            const scope = encodeURIComponent('identify email');
+            // For demo purposes, we'll just show the app
+            // In real implementation, use Discord OAuth then show app
             
-            // Include the target page in state parameter
-            const state = encodeURIComponent('/controlpage');
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('appContainer').style.display = 'flex';
             
-            // Redirect to Discord's OAuth2 page
-            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
+            // Update URL without reload
+            history.pushState(null, null, '/');
+            
+            // Load dashboard by default
+            showSection('dashboard');
         });
-
-        // Check for authentication errors in URL
-        window.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const error = urlParams.get('error');
-            
-            if (error) {
-                alert(`Login error: ${error}`);
-                // Clear the error from URL
-                window.history.replaceState({}, document.title, window.location.pathname);
+        
+        // Handle browser back button
+        window.addEventListener('popstate', function() {
+            if (window.location.pathname === '/') {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('appContainer').style.display = 'flex';
             }
         });
+        
+        // Section loader
+        function showSection(section) {
+            const content = document.getElementById('contentArea');
+            
+            // Simple content - replace with your actual content
+            switch(section) {
+                case 'dashboard':
+                    content.innerHTML = '<h2>DASHBOARD</h2><p>Welcome to your dashboard</p>';
+                    break;
+                case 'hits':
+                    content.innerHTML = '<h2>HITS</h2><p>Your hits statistics</p>';
+                    break;
+                case 'tools':
+                    content.innerHTML = '<h2>TOOLS</h2><p>Available tools</p>';
+                    break;
+                case 'settings':
+                    content.innerHTML = '<h2>SETTINGS</h2><p>User settings</p>';
+                    break;
+            }
+        }
+        
+        // Check if logged in (in a real app, check cookies/localStorage)
+        if (window.location.pathname === '/' && !document.getElementById('appContainer').style.display) {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('appContainer').style.display = 'flex';
+            showSection('dashboard');
+        }
     </script>
 </body>
 </html>
