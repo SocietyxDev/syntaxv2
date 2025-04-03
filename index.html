@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Immortal</title>
+    <title>IMMORTAL | Login</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
@@ -177,7 +177,6 @@
             }
         }
         
-        /* Pixel grid effect */
         .pixel-grid {
             position: fixed;
             top: 0;
@@ -191,7 +190,6 @@
             z-index: -1;
         }
         
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .immortal {
                 font-size: 4rem;
@@ -229,29 +227,31 @@
         </svg>
         LOGIN WITH DISCORD
     </button>
-    
+
     <script>
-        // Discord OAuth2 Integration with your specific credentials
         document.getElementById('discordBtn').addEventListener('click', function() {
+            // Your Discord application credentials
             const clientId = '1337711363216375899';
-            const redirectUri = encodeURIComponent('https://synxgen.vercel.app/');
+            const redirectUri = encodeURIComponent('https://synxgen.vercel.app/api/auth/callback');
             const scope = encodeURIComponent('identify email');
             
-            // Discord OAuth2 URL
-            const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`;
+            // Include the target page in state parameter
+            const state = encodeURIComponent('/controlpage');
             
-            // Redirect to Discord's authorization page
-            window.location.href = authUrl;
+            // Redirect to Discord's OAuth2 page
+            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
         });
-        
-        // Additional glitch effect for the title on hover
-        const title = document.querySelector('.immortal');
-        title.addEventListener('mouseenter', () => {
-            title.style.animation = 'glitch 0.5s linear infinite';
-        });
-        
-        title.addEventListener('mouseleave', () => {
-            title.style.animation = 'glitch 1s linear infinite';
+
+        // Check for authentication errors in URL
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            
+            if (error) {
+                alert(`Login error: ${error}`);
+                // Clear the error from URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
         });
     </script>
 </body>
